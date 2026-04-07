@@ -104,7 +104,7 @@ node backend/server.js
 ---
 
 ## 👨‍💻 Author
-Yug
+Yug and Rahil
 
 ---
 
