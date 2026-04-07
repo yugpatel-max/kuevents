@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Karnavati University Events</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <img src="https://kunievents.netlify.app/logo.png" alt="KU Logo" class="logo-img" />
+        <span class="logo-text">Karnavati Events</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#" class="nav-link active">Home</a></li>
+        <li><a href="#events" class="nav-link">Events</a></li>
+        <li><a href="#past" class="nav-link">Highlights</a></li>
+        <li>
+          <a href="#" class="nav-link nav-icon-link" id="calendarBtn" title="Calendar">
+            <i class="fa-regular fa-calendar"></i>
+            <span class="icon-label">Calendar</span>
+          </a>
+        </li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li>
+          <a href="#" class="nav-link nav-profile-btn" id="profileBtn">
+            <i class="fa-regular fa-user"></i>
+            <span>Profile</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul>
+        <li><a href="#" onclick="closeMobile()">Home</a></li>
+        <li><a href="#events" onclick="closeMobile()">Events</a></li>
+        <li><a href="#past" onclick="closeMobile()">Highlights</a></li>
+        <li><a href="#contact" onclick="closeMobile()">Contact</a></li>
+        <li><a href="#" onclick="openLogin(); closeMobile()">Profile / Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========== HERO SECTION ========== -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <img src="https://kunievents.netlify.app/main.png" alt="University Campus" class="hero-img" />
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <span class="hero-badge">✦ Karnavati University</span>
+      <h1 class="hero-title">Where Creativity<br/>Meets Innovation</h1>
+      <p class="hero-subtitle">Discover the vibrant life at Karnavati University through our curated events, festivals, and academic symposiums.</p>
+      <div class="hero-buttons">
+        <a href="#events" class="btn btn-primary">Explore Events</a>
+        <a href="#past" class="btn btn-outline">Past Highlights</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num" data-target="50">0</span><span class="stat-plus">+</span>
+          <span class="stat-label">Annual Events</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="10000">0</span><span class="stat-plus">+</span>
+          <span class="stat-label">Students</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="5">0</span>
+          <span class="stat-label">Colleges</span>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll to explore</span>
+      <div class="scroll-arrow"><i class="fa-solid fa-chevron-down"></i></div>
+    </div>
+  </section>
+  <div class="modal-overlay" id="profileModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>My Profile</h3>
+      <button class="modal-close" onclick="closeModal('profileModal')">✖</button>
+    </div>
+
+    <div class="modal-body">
+      <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+
+      <button class="btn btn-primary" onclick="logoutUser()" style="margin-top:15px;">
+        Logout
+      </button>
+    </div>
+  </div>
+</div>
+
+  <!-- ========== MY UPCOMING EVENTS (logged-in only) ========== -->
+  <section class="my-events-section" id="myEvents">
+    <div class="container">
+      <div class="my-events-card">
+        <div class="my-events-left">
+          <i class="fa-regular fa-calendar-check my-events-icon"></i>
+          <div>
+            <h2>My Upcoming Events</h2>
+            <p>Quick access to your registered events.</p>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="openProfile()">View Profile</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== UPCOMING EVENTS ========== -->
+  <section class="events-section" id="events">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">What's On</span>
+        <h2 class="section-title">Upcoming Events</h2>
+        <p class="section-subtitle">Stay updated with the latest happenings at Karnavati University. Filter by category or search for specific events.</p>
+      </div>
+
+      <div class="events-controls">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchInput" placeholder="Search events..." oninput="filterEvents()" />
+        </div>
+        <div class="filter-group">
+          <button class="filter-btn active" onclick="setFilter('all', this)">All Events</button>
+          <button class="filter-btn" onclick="setFilter('featured', this)">Featured Only</button>
+          <button class="filter-btn" onclick="setFilter('workshop', this)">Workshop</button>
+          <button class="filter-btn" onclick="setFilter('cultural', this)">Cultural</button>
+          <button class="filter-btn" onclick="setFilter('sports', this)">Sports</button>
+          <button class="filter-btn" onclick="setFilter('tech', this)">Tech</button>
+        </div>
+      </div>
+
+      <div class="events-grid" id="eventsGrid">
+        <!-- Cards injected by JS -->
+      </div>
+
+      <div class="no-events" id="noEvents" style="display:none;">
+        <div class="no-events-icon"><i class="fa-regular fa-calendar-xmark"></i></div>
+        <h3>No events found</h3>
+        <p>Try adjusting your search or filter to find what you're looking for.</p>
+        <button class="btn btn-outline" onclick="clearFilters()">Clear all filters</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PAST HIGHLIGHTS ========== -->
+  <section class="past-section" id="past">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Memory Lane</span>
+        <h2 class="section-title">Relive the Moments</h2>
+        <p class="section-subtitle">Take a look back at the incredible energy and creativity from our past events. From star-studded concerts to groundbreaking tech showcases.</p>
+      </div>
+
+      <div class="highlights-grid">
+        <div class="highlight-card highlight-large">
+          <img src="https://kunievents.netlify.app/e1.jpeg" alt="Event Highlight 1" loading="lazy"/>
+          <div class="highlight-overlay">
+            <span class="highlight-tag">Campus Life</span>
+            <h4>Cultural Celebration</h4>
+          </div>
+        </div>
+        <div class="highlight-card">
+          <img src="https://kunievents.netlify.app/e2.jpeg" alt="Event Highlight 2" loading="lazy"/>
+          <div class="highlight-overlay">
+            <span class="highlight-tag">Academic Excellence</span>
+          </div>
+        </div>
+        <div class="highlight-card">
+          <img src="https://kunievents.netlify.app/e3.jpeg" alt="Event Highlight 3" loading="lazy"/>
+          <div class="highlight-overlay">
+            <span class="highlight-tag">Innovation</span>
+          </div>
+        </div>
+        <div class="highlight-card">
+          <img src="https://kunievents.netlify.app/e4.jpeg" alt="Event Highlight 4" loading="lazy"/>
+          <div class="highlight-overlay">
+            <span class="highlight-tag">Sports & Culture</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== NEWSLETTER ========== -->
+  <section class="newsletter-section" id="contact">
+    <div class="container">
+      <div class="newsletter-card">
+        <div class="newsletter-content">
+          <span class="section-tag">Stay Connected</span>
+          <h2>Never Miss an Event</h2>
+          <p>Subscribe to our newsletter and be the first to know about upcoming festivals, workshops, and campus news.</p>
+        </div>
+        <div class="newsletter-form-wrap">
+          <div class="success-msg" id="successMsg">
+            <i class="fa-solid fa-circle-check"></i>
+            <div>
+              <strong>You're on the list!</strong>
+              <p>Thanks for subscribing to our updates.</p>
+            </div>
+          </div>
+          <form class="newsletter-form" id="newsletterForm" onsubmit="subscribeNewsletter(event)">
+            <input type="email" id="emailInput" placeholder="Enter your email address" required />
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo">
+            <img src="https://kunievents.netlify.app/logo.png" alt="KU Logo" class="logo-img"/>
+            <span class="logo-text">Karnavati Events</span>
+          </a>
+          <p>Empowering students through creativity, innovation, and leadership. Karnavati University is a premier destination for holistic education.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">About KU</a></li>
+            <li><a href="#">Academic Calendar</a></li>
+            <li><a href="#">Campus Life</a></li>
+            <li><a href="#">Student Portal</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <ul class="footer-contact">
+            <li><i class="fa-solid fa-location-dot"></i> A/907, Uvarsad-Vavol Rd, Knowledge Village, Gandhinagar, Gujarat 382422</li>
+            <li><i class="fa-regular fa-clock"></i> Mon - Sat: 9:00 AM - 5:00 PM</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Karnavati University. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== CALENDAR MODAL ========== -->
+  <div class="modal-overlay" id="calendarModal">
+    <div class="modal modal-wide">
+      <div class="modal-header">
+        <h3><i class="fa-regular fa-calendar"></i> Event Calendar</h3>
+        <button class="modal-close" onclick="closeModal('calendarModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="calendar-body">
+        <div class="cal-nav">
+          <button onclick="prevMonth()"><i class="fa-solid fa-chevron-left"></i></button>
+          <span id="calMonthYear"></span>
+          <button onclick="nextMonth()"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+        <div class="cal-weekdays">
+          <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+        </div>
+        <div class="cal-days" id="calDays"></div>
+      </div>
+    </div>
+  </div>
+
+ <!-- ========== LOGIN MODAL ========== -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="authTitle">Sign In</h3>
+      <button class="modal-close" onclick="closeModal('loginModal')">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="login-logo">
+        <img src="https://kunievents.netlify.app/logo.png" alt="KU Logo" style="width:60px;"/>
+        <p>Karnavati University</p>
+      </div>
+      <!-- PROFILE MODAL -->
+<div class="modal-overlay" id="profileModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>My Profile</h3>
+      <button class="modal-close" onclick="closeModal('profileModal')">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+      <p><strong>Name:</strong> <span id="profileName"></span></p>
+
+      <button class="btn btn-primary" onclick="logoutUser()" style="margin-top:15px;">
+        Logout
+      </button>
+    </div>
+  </div>
+</div>
+
+      <!-- LOGIN -->
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="student@ku.ac.in" required id="loginEmail"/>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" placeholder="••••••••" required id="loginPass"/>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;">
+          Sign In
+        </button>
+      </form>
+
+      <!-- REGISTER -->
+      <form id="registerForm" onsubmit="handleRegister(event)" style="display:none;">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="student@ku.ac.in" required id="regEmail"/>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" placeholder="••••••••" required id="regPass"/>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;">
+          Register
+        </button>
+      </form>
+
+      <!-- TOGGLE -->
+      <p class="login-footer">
+        <span id="toggleText">Don't have an account?</span>
+        <a href="#" onclick="toggleAuth()">Register here</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+  <!-- ========== EVENT DETAIL MODAL ========== -->
+  <div class="modal-overlay" id="eventModal">
+    <div class="modal modal-wide">
+      <div class="modal-header">
+        <h3 id="eventModalTitle">Event Details</h3>
+        <button class="modal-close" onclick="closeModal('eventModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" id="eventModalBody"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
